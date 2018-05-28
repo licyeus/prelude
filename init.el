@@ -113,6 +113,72 @@ by Prelude.")
 (require 'prelude-editor)
 (require 'prelude-global-keybindings)
 
+;; CUSTOM
+
+(require 'prelude-evil)
+(global-set-key (kbd "C-u") 'evil-scroll-up)
+
+(require 'helm-config)
+(helm-mode 1)
+(require 'prelude-helm-everywhere)
+
+(require 'prelude-org)
+(require 'prelude-python)
+
+(scroll-bar-mode -1)
+(global-linum-mode t)
+
+(setq default-frame-alist '((font . "Inconsolata XL-13")))
+
+(require 'conda)
+(conda-env-initialize-eshell)
+(conda-env-autoactivate-mode t)
+
+;; TODO: disable line truncating: toggle-truncate-lines disable
+
+(setq comint-output-filter-functions (remove 'ansi-color-process-output comint-output-filter-functions))
+(add-hook 'shell-mode-hook (lambda () (add-hook 'comint-preoutput-filter-functions 'xterm-color-filter nil t)))
+
+;; enable color in eshell for non-eshell commands
+(require 'eshell)
+(add-hook 'eshell-before-prompt-hook (lambda () (setq xterm-color-preserve-properties t)))
+(add-to-list 'eshell-preoutput-filter-functions 'xterm-color-filter)
+(setq eshell-output-filter-functions (remove 'eshell-handle-ansi-color eshell-output-filter-functions))
+(add-hook 'eshell-mode-hook (lambda () (progn (setenv "TERM" "xterm-256color") (linum-mode 0))))
+
+(get-buffer eshell-buffer-name)
+
+(defun run-in-eshell (command)
+  "Insert COMMAND in eshell and execute."
+  (interactive)
+  (require 'eshell)
+  (let ((buf (current-buffer)))
+    (unless (get-buffer eshell-buffer-name) (eshell))
+    (display-buffer eshell-buffer-name t)
+    (switch-to-buffer-other-window eshell-buffer-name)
+    (end-of-buffer)
+    ;; TODO: clear buffer
+    (eshell-kill-input)
+    (insert "clear")
+    (eshell-send-input)
+    (insert command)
+    (eshell-send-input)
+    (end-of-buffer)
+    (switch-to-buffer-other-window buf)))
+
+(global-set-key (kbd "C-#") (lambda ()
+  (interactive)
+  (progn
+    (run-in-eshell "cd /Users/aps/src/_sandbox/pytest_test")
+    (run-in-eshell "/Users/aps/anaconda3/envs/pytest_test/bin/pytest")
+  )
+))
+
+;; TODO: disable python flycheck as it's creating temp files
+
+(setq ns-use-native-fullscreen nil)
+;; END CUSTOM
+
 ;; OSX specific settings
 (when (eq system-type 'darwin)
   (require 'prelude-osx))
