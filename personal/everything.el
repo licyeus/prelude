@@ -89,7 +89,7 @@
   )
 ))
 
-(setq org-todo-keywords '((sequence "TODO(t)" "WAIT(w@/!)" "INPROGRESS(p)" "|" "DONE(d!)" "CANCELED(c@)")))
+(setq org-todo-keywords '((sequence "TODO(t)" "WAIT(w@/!)" "INPR(p)" "|" "DONE(d!)" "CANC(c@)")))
 ;; TODO: disable python flycheck as it's creating temp files
 
 (setq ns-use-native-fullscreen nil)
@@ -99,11 +99,13 @@
 (setq shr-use-fonts nil)
 (setq shr-inhibit-images t)
 (setq elfeed-show-mode-hook
-  '(lambda () (progn)))
+      '(lambda () (progn
+                    (auto-fill-mode))))
     ; (split-window-right)
     ; (disable-theme 'zenburn)
     ; (load-theme 'whiteboard)
     ; (set-variable 'line-spacing 14))))
+(setq-default fill-column 100)
 
 (use-package elfeed-org
   :ensure t
@@ -120,6 +122,8 @@
 ;;               ("q" . bjm/elfeed-save-db-and-bury)))
 (evil-set-initial-state 'elfeed-search-mode 'emacs)
 (evil-set-initial-state 'elfeed-show-mode 'emacs)
+
+(setq elfeed-search-title-max-width 100)
 
 (global-set-key (kbd "C-c C-r") 'elfeed)
 (global-set-key (kbd "C-c g") 'comment-region)
@@ -139,11 +143,22 @@
   ;; need to do this manually or not picked up by `shell-pop'
   (shell-pop--set-shell-type 'shell-pop-shell-type shell-pop-shell-type))
 
-(setq org-agenda-files (list "~/Dropbox/org/agenda.org"))
+(setq org-agenda-files (list
+                        "~/Dropbox/org/agenda.org"
+                        "~/Dropbox/org/classifier/agenda.org"))
 (setq org-capture-templates
       '(("t" "todo" entry (file+headline "~/Dropbox/org/agenda.org" "tasks")
-         "* TODO [#A] %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n"))
+         "* TODO [#A] %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n")
+      ("m" "markers-todo" entry (file+headline "~/Dropbox/org/classifier/agenda.org" "backlog")
+         "* TODO [#A] %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n")
+        )
 ;      '(("b" "bookmark" entry (file+headline "~/Dropbox/org/bookmarks.org")
 ;         "* %?\nSAVED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n"))
       )
 (global-set-key (kbd "C-c c") 'org-capture)
+
+(add-hook 'python-mode-hook 'blacken-mode)
+(custom-set-variables '(helm-ag-base-command "rg --no-heading"))
+
+(global-unset-key (kbd "C-c C-f"))
+(global-set-key (kbd "C-c C-f") 'helm-ag-project-root)
