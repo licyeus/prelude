@@ -1,6 +1,6 @@
 ;; TODO
 ;; auto install packages with (prelude-require-packages '(some-package some-other-package))
-;; auto install helm + conda
+;; auto install helm
 
 (setq prelude-flyspell nil)
 
@@ -45,9 +45,9 @@
 
 (setq default-frame-alist '((font . "Inconsolata XL-11")))
 
-(require 'conda)
-(conda-env-initialize-eshell)
-(conda-env-autoactivate-mode t)
+;(require 'conda)
+;(conda-env-initialize-eshell)
+;(conda-env-autoactivate-mode t)
 
 ;; TODO: disable line truncating: toggle-truncate-lines disable
 
@@ -81,13 +81,13 @@
     (end-of-buffer)
     (switch-to-buffer-other-window buf)))
 
-(global-set-key (kbd "C-#") (lambda ()
-  (interactive)
-  (progn
-
-    (run-in-eshell "/Users/aps/anaconda3/envs/pytest_test/bin/pytest")
-  )
-))
+;(global-set-key (kbd "C-#") (lambda ()
+;  (interactive)
+;  (progn
+;
+;    (run-in-eshell "/Users/aps/anaconda3/envs/pytest_test/bin/pytest")
+;  )
+;))
 
 (setq org-todo-keywords '((sequence "TODO(t)" "WAIT(w@/!)" "INPR(p)" "|" "DONE(d!)" "CANC(c@)")))
 ;; TODO: disable python flycheck as it's creating temp files
@@ -107,11 +107,11 @@
     ; (set-variable 'line-spacing 14))))
 (setq-default fill-column 100)
 
-(use-package elfeed-org
-  :ensure t
-  :config
-  (elfeed-org)
-  (setq rmh-elfeed-org-files (list "/home/aps/Dropbox/org/elfeed.org")))
+;; (use-package elfeed-org
+;;   :ensure t
+;;   :config
+;;   (elfeed-org)
+;;   (setq rmh-elfeed-org-files (list "/home/aps/Dropbox/org/elfeed.org")))
 
 ;; (use-package elfeed
 ;;   :ensure t
@@ -120,19 +120,18 @@
 ;;               ("E" . bjm/elfeed-show-emacs)
 ;;               ("D" . bjm/elfeed-show-daily)
 ;;               ("q" . bjm/elfeed-save-db-and-bury)))
-(evil-set-initial-state 'elfeed-search-mode 'emacs)
-(evil-set-initial-state 'elfeed-show-mode 'emacs)
+;; (evil-set-initial-state 'elfeed-search-mode 'emacs)
+;; (evil-set-initial-state 'elfeed-show-mode 'emacs)
 
-(setq elfeed-search-title-max-width 100)
+;; (setq elfeed-search-title-max-width 100)
 
 (global-set-key (kbd "C-c C-r") 'elfeed)
 (global-set-key (kbd "C-c g") 'comment-region)
-(global-set-key (kbd "C-c C-t") (lambda () (interactive) (find-file "/home/aps/Dropbox/org/home/agenda.org")))
 
 (setq org-startup-indented t)
 
-(setq browse-url-browser-function 'browse-url-generic
-      browse-url-generic-program "chromium-browser")
+;(setq browse-url-browser-function 'browse-url-generic
+;      browse-url-generic-program "chromium-browser")
 
 (global-set-key (kbd "C-c C-c") 'shell-pop)
 (use-package shell-pop
@@ -143,22 +142,24 @@
   ;; need to do this manually or not picked up by `shell-pop'
   (shell-pop--set-shell-type 'shell-pop-shell-type shell-pop-shell-type))
 
-(setq org-agenda-files (list
-                        "~/Dropbox/org/agenda.org"
-                        "~/Dropbox/org/classifier/agenda.org"))
-(setq org-capture-templates
-      '(("t" "todo" entry (file+headline "~/Dropbox/org/agenda.org" "tasks")
-         "* TODO [#A] %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n")
-      ("m" "markers-todo" entry (file+headline "~/Dropbox/org/classifier/agenda.org" "backlog")
-         "* TODO [#A] %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n")
-        )
-;      '(("b" "bookmark" entry (file+headline "~/Dropbox/org/bookmarks.org")
-;         "* %?\nSAVED: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n"))
-      )
-(global-set-key (kbd "C-c c") 'org-capture)
 
 (add-hook 'python-mode-hook 'blacken-mode)
 (custom-set-variables '(helm-ag-base-command "rg --no-heading"))
 
 (global-unset-key (kbd "C-c C-f"))
 (global-set-key (kbd "C-c C-f") 'helm-ag-project-root)
+
+(setq ediff-split-window-function 'split-window-horizontally)
+
+; LINKS
+(setq browse-url-browser-function 'browse-url-firefox)
+
+(defun toggle-light-or-dark-theme ()
+  (interactive)
+  (if (eq (car custom-enabled-themes) 'solarized-light)
+      (progn (disable-theme 'solarized-light) (load-theme 'zenburn))
+      (progn (disable-theme 'zenburn) (load-theme 'solarized-light))
+      )
+  )
+
+(global-set-key (kbd "C-c M-t") 'toggle-light-or-dark-theme)
