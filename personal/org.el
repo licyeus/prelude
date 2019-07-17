@@ -3,7 +3,7 @@
 (setq org-todo-keywords '((sequence "TODO(t)" "WAIT(w@/!)" "INPR(p)" "|" "DONE(d!)" "CANC(c@)")))
 
 ; (setq org-agenda-files '("~/Dropbox/org"))
-(setq org-agenda-files (directory-files-recursively "~/org/markers" "\.org$"))
+(setq org-agenda-files (directory-files-recursively "~/org/" "\.org$"))
 
 (setq org-capture-templates
       '(("t" "todo" entry (file+headline "~/Dropbox/org/agenda.org" "tasks")
@@ -18,4 +18,8 @@
       ))
 (global-set-key (kbd "C-c c") 'org-capture)
 
-(add-hook 'org-mode-hook '(lambda () (visual-line-mode)))
+(add-hook 'org-mode-hook '(lambda ()
+                            (visual-line-mode)
+                            (set-fringe-mode 0)
+                            (linum-mode 0)
+                            ))

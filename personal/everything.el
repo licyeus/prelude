@@ -61,6 +61,7 @@
 ))
 
 (setq ns-use-native-fullscreen nil)
+(global-set-key (kbd "M-f") 'toggle-frame-fullscreen)
 
 (setq whitespace-line-column 88)
 
