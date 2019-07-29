@@ -98,7 +98,8 @@
 ;; (use-package graphql-mode)
 
 (disable-theme 'zenburn)
-(load-theme 'sanityinc-tomorrow-night)
+;; (load-theme 'sanityinc-tomorrow-night)
+(load-theme 'sanityinc-solarized-light)
 
 ;; disable highlighting of long lines (line-trail is default)
 (setq whitespace-style '(face tabs empty trailing))
