@@ -1,6 +1,6 @@
 ;; TODO
 ;; auto install packages with (prelude-require-packages '(some-package some-other-package))
-;; auto install helm + conda
+;; auto install helm
 ;; auto install key-chord
 
 (setq prelude-flyspell nil)
@@ -16,10 +16,6 @@
 (global-linum-mode t)
 
 (setq default-frame-alist '((font . "Inconsolata XL-12")))
-
-(require 'conda)
-(conda-env-initialize-eshell)
-(conda-env-autoactivate-mode t)
 
 ;; TODO: disable line truncating: toggle-truncate-lines disable
 
@@ -65,11 +61,6 @@
 
 (setq whitespace-line-column 88)
 
-;; old elfeed config
-(setq shr-use-fonts nil)
-(setq shr-inhibit-images t)
-(setq-default fill-column 100)
-
 (global-set-key (kbd "C-c g") 'comment-region)
 
 (setq org-startup-indented t)
@@ -108,3 +99,15 @@
 ;; (eval-after-load 'evil-core '(evil-set-initial-state 'magit-popup-mode 'emacs))
 
 (require 'evil-magit)
+
+(setq ediff-split-window-function 'split-window-horizontally)
+
+(defun toggle-light-or-dark-theme ()
+  (interactive)
+  (if (eq (car custom-enabled-themes) 'solarized-light)
+      (progn (disable-theme 'solarized-light) (load-theme 'zenburn))
+    (progn (disable-theme 'zenburn) (load-theme 'solarized-light))
+    )
+  )
+
+(global-set-key (kbd "C-c M-t") 'toggle-light-or-dark-theme)

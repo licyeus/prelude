@@ -38,10 +38,7 @@
   web-mode-enable-css-colorization t
   web-mode-enable-auto-quoting nil)
 
-(add-to-list 'auto-mode-alist '("\\.js\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.jsx\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.ts\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.tsx\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.(js|jsx|ts|tsx)\\'" . web-mode))
 
 (setq standard-indent 2)
 
