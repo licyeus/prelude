@@ -2,7 +2,7 @@
 (require 'org-protocol)
 ;; (require 'org-protocol-capture-html)
 
-(global-set-key (kbd "C-c C-t") (lambda () (interactive) (find-file "~/org/agenda.org")))jk
+(global-set-key (kbd "C-c C-t") (lambda () (interactive) (find-file "~/org/agenda.org")))
 
 (require 'prelude-org)
 
