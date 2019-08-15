@@ -104,9 +104,9 @@
 
 (defun toggle-light-or-dark-theme ()
   (interactive)
-  (if (eq (car custom-enabled-themes) 'solarized-light)
-      (progn (disable-theme 'solarized-light) (load-theme 'zenburn))
-    (progn (disable-theme 'zenburn) (load-theme 'solarized-light))
+  (if (eq (car custom-enabled-themes) 'sanityinc-solarized-light)
+      (progn (disable-theme 'sanityinc-solarized-light) (load-theme 'zenburn))
+    (progn (disable-theme 'zenburn) (load-theme 'sanityinc-solarized-light))
     )
   )
 
