@@ -15,7 +15,7 @@
 (scroll-bar-mode -1)
 (global-linum-mode t)
 
-(setq default-frame-alist '((font . "Inconsolata XL-12")))
+(setq default-frame-alist '((font . "Inconsolata-13")))
 
 ;; TODO: disable line truncating: toggle-truncate-lines disable
 
