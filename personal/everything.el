@@ -76,7 +76,9 @@
   ;; need to do this manually or not picked up by `shell-pop'
   (shell-pop--set-shell-type 'shell-pop-shell-type shell-pop-shell-type))
 
-(custom-set-variables '(helm-ag-base-command "rg --no-heading"))
+(custom-set-variables
+  '(helm-ag-base-command "rg --no-heading")
+  '(helm-follow-mode-persistent t))
 
 (global-unset-key (kbd "C-c C-f"))
 (global-set-key (kbd "C-c C-f") 'helm-ag-project-root)
