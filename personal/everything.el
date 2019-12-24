@@ -1,10 +1,7 @@
 ;; TODO
 ;; auto install packages with (prelude-require-packages '(some-package some-other-package))
 ;; auto install helm
-<<<<<<< HEAD
-=======
 ;; auto install key-chord
->>>>>>> 6243e537915e5f77959ec86bfd0ec7e5929117a5
 
 (setq prelude-flyspell nil)
 
@@ -18,7 +15,7 @@
 (scroll-bar-mode -1)
 (global-linum-mode t)
 
-(setq default-frame-alist '((font . "Inconsolata XL-12")))
+(setq default-frame-alist '((font . "Inconsolata XL-11")))
 
 ;; TODO: disable line truncating: toggle-truncate-lines disable
 
